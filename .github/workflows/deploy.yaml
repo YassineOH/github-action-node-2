@@ -1,0 +1,46 @@
+name: Deploy app
+
+on: push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v5
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - name: Install pnpm package manager
+        run: npm install -g pnpm@latest-10
+      - name: Run test
+        run: pnpm lint
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v5
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - name: Install pnpm package manager
+        run: npm install -g pnpm@latest-10
+      - name: Run test
+        run: pnpm test
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v5
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - name: Install pnpm package manager
+        run: npm install -g pnpm@latest-10
+      - name: Run test
+        run: echo "Deploying ..."
