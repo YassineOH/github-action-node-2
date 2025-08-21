@@ -14,7 +14,9 @@ jobs:
           node-version: 22.x
       - name: Install pnpm package manager
         run: npm install -g pnpm@latest-10
-      - name: Run test
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run lint
         run: pnpm lint
   test:
     needs: lint
